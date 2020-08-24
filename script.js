@@ -1,3 +1,5 @@
+
+
 // Not using jsx, would require babel in browser
 class IframeController extends React.Component {
     constructor(props) {
@@ -100,7 +102,10 @@ class IframeController extends React.Component {
         const clipboard = event.clipboardData || window.clipboardData || event.originalEvent.clipboardData;
         const pastedInput = clipboard.getData('text/plain');
 
-        const parsedInput = this.parseInput(pastedInput);
+        // const parsedInput = this.parseInput(pastedInput);
+        const parsedInput = Papa.parse(pastedInput).data;
+        // Parse pastedInput
+
         
         this.setState({
             newCols: [], // reset newCols
