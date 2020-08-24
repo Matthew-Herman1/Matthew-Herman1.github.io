@@ -77,41 +77,27 @@ class IframeController extends React.Component {
             input: newInput
         })
     }
-    parseInput(userInput) {
-        const rows = userInput.split('\n');
-        const tablerows = [];
-        const numPastedTitles = rows[0].split('\t').length;
-
-        for (let i=0; i<rows.length; i++) {
-            let row = rows[i];
-            row = row.split('\t');
-
-            // Check proper length against total number of titles, fixes trailing \n
-            if (row.length !== numPastedTitles) {
-                console.error('Omitted improperly formatted row: ');
-                console.error(row);
-            } else {
-                tablerows.push(row);
-            }
-            
-        }
-    
-        return tablerows;
-    }
     handlePaste(event) {
         const clipboard = event.clipboardData || window.clipboardData || event.originalEvent.clipboardData;
         const pastedInput = clipboard.getData('text/plain');
 
-        // const parsedInput = this.parseInput(pastedInput);
         const parsedInput = Papa.parse(pastedInput).data;
-        // Parse pastedInput
 
+        const numTitles = parsedInput[0].length;
+        const filteredInput = parsedInput.filter( (row) => {
+            if (row.length !== numTitles) {
+                console.error('Omitted improperly formatted row: ', row);
+                
+                return false;
+            }
+            return true;
+        })
         
         this.setState({
             newCols: [], // reset newCols
             newColInput: '',
             userInput: pastedInput,
-            input: parsedInput,
+            input: filteredInput,
         })
     }
     handleUserInputChange(e) {
