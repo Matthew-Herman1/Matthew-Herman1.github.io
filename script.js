@@ -12,7 +12,6 @@ class IframeController extends React.Component {
         };
         this.changeCell = this.changeCell.bind(this);
         this.changeUserInput = this.handlePaste.bind(this);
-        this.parseInput = this.parseInput.bind(this);
         this.handlePaste = this.handlePaste.bind(this);
         this.getTableJSON = this.getTableJSON.bind(this);
         this.handleNewColChange = this.handleNewColChange.bind(this);
