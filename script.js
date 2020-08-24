@@ -93,8 +93,7 @@ class IframeController extends React.Component {
         })
         
         this.setState({
-            newCols: [], // reset newCols
-            newColInput: '',
+            newCols: [], // reset newCols on paste
             userInput: pastedInput,
             input: filteredInput,
         })
@@ -160,6 +159,11 @@ class IframeController extends React.Component {
 
                 tds.push( React.createElement('td', {key: j}, inputEl));
             }
+
+
+            // Add row number to tr
+            let rowNum = React.createElement('td', {key: 'rowNum'}, i !== 0 ? i : '');
+            tds.unshift(rowNum);
 
             trs.push( React.createElement('tr', {key: i}, tds));
         }
